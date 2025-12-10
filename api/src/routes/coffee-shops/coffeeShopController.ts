@@ -9,6 +9,7 @@ export function getShopById(req: Request, res: Response){
 }
 
 export function createShop(req: Request, res: Response){
+    console.log(req.body)
     res.send('createShop');
 }
 
