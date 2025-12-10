@@ -1,17 +1,13 @@
 import { Router } from 'express';
-import { listShops } from './coffeeShopController';
+import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
 
 //coffee shop endpoints
 const router = Router();
 
-router.get('/:id', listShops);
+router.get('/:id', getShopById);
+router.get('/', listShops);
+router.post('/', createShop);
+router.put('/:id', updateShop)
+router.delete('/:id', deleteShop);
 
-router.get('/', (req,res) =>{
-    res.send('list of coffee shops')
-});
-
-router.post('/', (req, res) =>{
-    res.send('New coffee shop made');
-});
-
-export default router``
+export default router;
