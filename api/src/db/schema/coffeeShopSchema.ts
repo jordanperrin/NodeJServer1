@@ -4,6 +4,8 @@ export const coffeeShopsTable = pgTable("coffee_shops", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   address: varchar({ length: 255 }).notNull(),
-  cordinates: point({ mode: 'xy' }).notNull(),
-  rating: decimal({precision: 4, scale:1}),
+  // coordinates: point({ mode: 'xy' }).notNull(),
+  rating: decimal({precision: 3, scale:1}).default("0.0").notNull(),
+  total_ratings: integer().default(0).notNull(),
+  average_rating: decimal({precision:3, scale:1}).default("0.0").notNull(),
 });

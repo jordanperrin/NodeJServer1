@@ -1,22 +1,62 @@
-import {Request, Response} from 'express'
+import { Request, Response } from 'express'
+import { db } from '../../db/index';
+import { coffeeShopsTable } from '../../db/schema/coffeeShopSchema'
+import { eq } from 'drizzle-orm';
 
-export function listShops(req: Request, res: Response){
+export async function listShops(req: Request, res: Response) {
+    try {
+        const coffee_shops = await db.select().from(coffeeShopsTable);
+
+        res.json(coffee_shops)
+    } catch (e) {
+        res.status(500).send(e)
+    }
     res.send('listShops');
 }
+``
+export async function getShopById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const [coffee_shop] = await db.select().from(coffeeShopsTable).where(eq(coffeeShopsTable.id, Number(id)));
 
-export function getShopById(req: Request, res: Response){
+        if (!coffee_shop) {
+            res.status(404).send({ message: "coffee shop not found" })
+        }else{
+            res.json(coffee_shop)
+        }
+
+    } catch (e) {
+        res.status(500).send(e)
+    }
     res.send('getShopById');
 }
 
-export function createShop(req: Request, res: Response){
-    console.log(req.body)
-    res.send('createShop');
+export async function createShop(req: Request, res: Response) {
+
+    try {
+        const [coffeeShop] = await db.insert(coffeeShopsTable).values(req.body).returning();
+
+        res.status(201).json(coffeeShop);
+    } catch (e) {
+        res.status(500).send(e)
+    }
+
 }
 
-export function updateShop(req: Request, res: Response){
+export function updateShop(req: Request, res: Response) {
+    try {
+
+    } catch (e) {
+        res.status(500).send(e)
+    }
     res.send('updateShop');
 }
 
-export function deleteShop(req: Request, res: Response){
+export function deleteShop(req: Request, res: Response) {
+    try {
+
+    } catch (e) {
+        res.status(500).send(e)
+    }
     res.send('deleteShop');
 }

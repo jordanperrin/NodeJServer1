@@ -8,6 +8,34 @@
       "when": 1765727228343,
       "tag": "0000_chilly_shadow_king",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765728469798,
+      "tag": "0001_new_catseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765728804286,
+      "tag": "0002_tiresome_excalibur",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1765886079712,
+      "tag": "0003_next_shockwave",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1765887127619,
+      "tag": "0004_next_blue_blade",
+      "breakpoints": true
     }
   ]
 }
