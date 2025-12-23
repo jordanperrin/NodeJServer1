@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { db } from "../../db/index";
-import { coffeeShopsTable } from "../../db/schema/coffeeShopSchema";
-import { eq } from "drizzle-orm";
+import { Request, Response } from 'express';
+import { db } from '../../db/index';
+import { coffeeShopsTable } from '../../db/schema/coffeeShopSchema';
+import { eq } from 'drizzle-orm';
 
 export async function listShops(req: Request, res: Response) {
   try {

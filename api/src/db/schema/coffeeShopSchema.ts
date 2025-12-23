@@ -1,4 +1,4 @@
-import { integer, pgTable, varchar, point, decimal } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, point, decimal } from 'drizzle-orm/pg-core';
 
 export const coffeeShopsTable = pgTable("coffee_shops", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
