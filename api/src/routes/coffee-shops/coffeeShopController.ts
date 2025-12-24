@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 import { db } from '../../db/index';
 import { coffeeShopsTable } from '../../db/schema/coffeeShopSchema';
 import { eq } from 'drizzle-orm';
+import { type CoffeeShopInsert } from '../../types/zod/coffeeShopTableZod';
+import { createShopSchema } from  '../../db/schema/coffeeShopSchema';
+
+
 
 export async function listShops(req: Request, res: Response) {
   try {
@@ -35,9 +39,19 @@ export async function getShopById(req: Request, res: Response) {
 
 export async function createShop(req: Request, res: Response) {
   try {
+
+    const validatedData: CoffeeShopInsert = createShopSchema.transform(data => ({
+        ...data,
+        address: data.address.toUpperCase()
+      }))
+      .parse(req.body);
+
+    console.log(validatedData.address)
+    
+
     const [coffeeShop] = await db
       .insert(coffeeShopsTable)
-      .values(req.body)
+      .values(validatedData)
       .returning();
 
     res.status(201).json(coffeeShop);
