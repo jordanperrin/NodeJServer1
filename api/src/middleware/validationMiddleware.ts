@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { z, ZodError} from 'zod';
 
-export function validateData(schema: z.ZodObject<any, any>) {
+export function validateData<T extends z.ZodObject<any, any>>(schema: T) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse(req.body);
+      //now we are directly inferring the type from the zod schema, makes it dynamic for every zod schema typ
+      req.cleanBody = schema.parse(req.body) as z.infer<T>;
       next();// if all data is verified we send it to the next middleware or the controller
     } catch (error) {
       if (error instanceof ZodError) { 

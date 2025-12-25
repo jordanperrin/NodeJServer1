@@ -1,11 +1,9 @@
-import { Request, Response } from 'express';
-import { db } from '../../db/index';
-import { coffeeShopsTable } from '../../db/schema/coffeeShopSchema';
-import { eq } from 'drizzle-orm';
-import { type CoffeeShopInsert } from '../../types/zod/coffeeShopTableZod';
-import { createShopSchema } from  '../../db/schema/coffeeShopSchema';
-
-
+import { Request, Response } from "express";
+import { db } from "../../db/index";
+import { coffeeShopsTable } from "../../db/schema/coffeeShopSchema";
+import { eq } from "drizzle-orm";
+import { type CoffeeShopInsert } from "../../types/zod/coffeeShopTableZod";
+import { createShopSchema } from "../../db/schema/coffeeShopSchema";
 
 export async function listShops(req: Request, res: Response) {
   try {
@@ -39,21 +37,12 @@ export async function getShopById(req: Request, res: Response) {
 
 export async function createShop(req: Request, res: Response) {
   try {
-
-    const validatedData: CoffeeShopInsert = createShopSchema.transform(data => ({
-        ...data,
-        address: data.address.toUpperCase()
-      }))
-      .parse(req.body);
-
-    console.log(validatedData.address)
-    
+    // const validatedData: CoffeeShopInsert = req.cleanBody;
 
     const [coffeeShop] = await db
       .insert(coffeeShopsTable)
-      .values(validatedData)
+      .values(req.cleanBody)
       .returning();
-
     res.status(201).json(coffeeShop);
   } catch (e) {
     res.status(500).send(e);
@@ -63,7 +52,7 @@ export async function createShop(req: Request, res: Response) {
 export async function updateShop(req: Request, res: Response) {
   try {
     const id = Number(req.params.id);
-    const updatedFields = req.body;
+    const updatedFields = req.cleanBody;
 
     const [updatedShop] = await db
       .update(coffeeShopsTable)
@@ -71,10 +60,10 @@ export async function updateShop(req: Request, res: Response) {
       .where(eq(coffeeShopsTable.id, id))
       .returning();
 
-    if(updatedShop){
-        res.status(200).json(updatedShop);
-    }else{
-        res.status(404).send({message: 'Shop not found'})
+    if (updatedShop) {
+      res.status(200).json(updatedShop);
+    } else {
+      res.status(404).send({ message: "Shop not found" });
     }
   } catch (e) {
     res.status(500).send(e);

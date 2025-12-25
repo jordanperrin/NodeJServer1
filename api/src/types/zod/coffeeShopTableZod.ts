@@ -1,4 +1,4 @@
-import {z} from 'zod';
-import { createShopSchema } from '../../db/schema/coffeeShopSchema'
+import { z } from "zod";
+import { createShopSchema } from "../../db/schema/coffeeShopSchema";
 
-export type CoffeeShopInsert = z.infer<typeof createShopSchema>; 
+export type CoffeeShopInsert = z.infer<typeof createShopSchema>;

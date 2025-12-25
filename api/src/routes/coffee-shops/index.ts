@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
 import { validateData } from '../../middleware/validationMiddleware';
-import { createShopSchema } from  '../../db/schema/coffeeShopSchema';
+import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
 
 //coffee shop endpoints
 
@@ -19,7 +19,7 @@ const router = Router();
 router.get('/:id', getShopById);
 router.get('/', listShops);
 router.post('/', validateData(createShopSchema), createShop);
-router.put('/:id', updateShop)
+router.put('/:id',validateData(updateShopSchema), updateShop)
 router.delete('/:id', deleteShop);
 
 export default router;
