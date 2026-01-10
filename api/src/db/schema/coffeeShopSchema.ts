@@ -24,12 +24,12 @@ export const coffeeShopsTable = pgTable(
       .notNull(),
 
     created_at: timestamp().notNull().defaultNow(),
-    updated_at: timestamp().notNull().defaultNow(),
+    updated_at: timestamp().notNull(),
 
     coordinates: point({ mode: "xy" }).notNull(),
     street_address: varchar({ length: 255 }).notNull(),
     zip_id: integer()
-      .references(() => zipCodeTable.id, { onDelete: "restrict" })
+      .references(() => zipCodeTable.id, { onDelete: "restrict" })//prevents deletion of a parent record
       .notNull(),
   },
   (table) => ({

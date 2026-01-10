@@ -17,5 +17,5 @@ export const twcEventsTable = pgTable("twc_events", {
   event_date: date().notNull(),
   // users_attended
   created_at: timestamp().notNull().defaultNow(),
-  updated_at: timestamp().notNull().defaultNow(),
+  updated_at: timestamp().notNull(),
 });

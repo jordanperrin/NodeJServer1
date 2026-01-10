@@ -36,6 +36,20 @@
       "when": 1765887127619,
       "tag": "0004_next_blue_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1768051363716,
+      "tag": "0005_aromatic_vargas",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1768053518681,
+      "tag": "0006_shallow_manta",
+      "breakpoints": true
     }
   ]
 }
