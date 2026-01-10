@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from "../db/index";
-import { zipCodeTable } from 'src/db/schema/zipCodeSchema';
+import { zipCodeTable } from '../db/schema/zipCodeSchema';
+import { eq } from 'drizzle-orm';
+
 
 export function handleZipCode(){
     return async (req:Request, res: Response, next: NextFunction) => {
@@ -14,7 +16,7 @@ export function handleZipCode(){
         }//need to validate all these properly
 
         //check if zip already exists
-        const exisitingZip = await db.select({id: zipCodeTable.id}).from(zipCodeTable).where(eq(zipCodeTable.zip, zip)).limit(1);
+        const exisitingZip = await db.select({id: zipCodeTable.id}).from(zipCodeTable).where(eq(zipCodeTable.zip, zip_code)).limit(1);
 
         let zip_id: number;
 
@@ -24,7 +26,7 @@ export function handleZipCode(){
             const [newZip] = await db
             .insert(zipCodeTable)
             .values({
-                zip_code,
+                zip: zip_code,
                 city: req.body.city,
                 state: req.body.state
             })
