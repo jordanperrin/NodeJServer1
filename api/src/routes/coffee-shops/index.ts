@@ -18,6 +18,7 @@ const router = Router();
 
 router.get('/:id', getShopById);
 router.get('/', listShops);
+//need to create middleware for zipcode
 router.post('/', validateData(createShopSchema), createShop);
 router.put('/:id',validateData(updateShopSchema), updateShop)
 router.delete('/:id', deleteShop);

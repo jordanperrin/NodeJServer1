@@ -8,7 +8,6 @@ import { createShopSchema } from "../../db/schema/coffeeShopSchema";
 export async function listShops(req: Request, res: Response) {
   try {
     const coffee_shops = await db.select().from(coffeeShopsTable);
-
     res.status(200).json(coffee_shops);
   } catch (e) {
     res.status(500).send(e);
@@ -37,8 +36,7 @@ export async function getShopById(req: Request, res: Response) {
 
 export async function createShop(req: Request, res: Response) {
   try {
-    // const validatedData: CoffeeShopInsert = req.cleanBody;
-
+    
     const [coffeeShop] = await db
       .insert(coffeeShopsTable)
       .values(req.cleanBody)
