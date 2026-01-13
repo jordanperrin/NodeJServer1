@@ -50,6 +50,27 @@
       "when": 1768053518681,
       "tag": "0006_shallow_manta",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1768169421482,
+      "tag": "0007_organic_cargill",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1768264532955,
+      "tag": "0008_third_arclight",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1768266197415,
+      "tag": "0009_medical_firedrake",
+      "breakpoints": true
     }
   ]
 }

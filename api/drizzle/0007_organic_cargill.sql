@@ -1,0 +1,1 @@
+ALTER TABLE "coffee_shops" ADD CONSTRAINT "coffee_shops_street_address_zip_id_unique" UNIQUE("street_address","zip_id");

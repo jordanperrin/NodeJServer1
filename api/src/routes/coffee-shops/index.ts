@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
 import { validateData , updatedAt } from '../../middleware';
 import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
+import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
+import {handleZipCode} from '../../middleware/zipCodeMiddleware'
+
 
 //coffee shop endpoints
 
@@ -19,7 +22,7 @@ const router = Router();
 router.get('/:id', getShopById);
 router.get('/', listShops);
 //need to create middleware for zipcode
-router.post('/', updatedAt, validateData(createShopSchema), createShop);
+router.post('/', handleZipCode(createZipCodeSchema),validateData(createShopSchema), createShop);
 router.put('/:id',updatedAt, validateData(updateShopSchema), updateShop)
 router.delete('/:id', deleteShop);
 

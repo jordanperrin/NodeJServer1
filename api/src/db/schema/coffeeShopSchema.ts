@@ -23,8 +23,8 @@ export const coffeeShopsTable = pgTable(
       .default("0.0")
       .notNull(),
 
-    created_at: timestamp().notNull().defaultNow(),
-    updated_at: timestamp().notNull(),
+    created_at: timestamp().defaultNow().notNull(),
+    updated_at: timestamp().defaultNow().notNull(),
 
     coordinates: point({ mode: "xy" }).notNull(),
     street_address: varchar({ length: 255 }).notNull(),
@@ -34,7 +34,6 @@ export const coffeeShopsTable = pgTable(
   },
   (table) => ({
     unique_location: unique().on(
-      table.coordinates,
       table.street_address,
       table.zip_id
     ),

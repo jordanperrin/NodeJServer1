@@ -83,4 +83,3 @@ ALTER TABLE "coffee_shops" ADD CONSTRAINT "coffee_shops_zip_id_zip_codes_id_fk" 
 ALTER TABLE "coffee_shops" DROP COLUMN "address";--> statement-breakpoint
 ALTER TABLE "coffee_shops" DROP COLUMN "rating";--> statement-breakpoint
 ALTER TABLE "coffee_shops" ADD CONSTRAINT "coffee_shops_google_id_unique" UNIQUE("google_id");--> statement-breakpoint
-ALTER TABLE "coffee_shops" ADD CONSTRAINT "coffee_shops_coordinates_street_address_zip_id_unique" UNIQUE("coordinates","street_address","zip_id");

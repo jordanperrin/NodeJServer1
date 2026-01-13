@@ -16,7 +16,8 @@ export const wantToTryTable = pgTable(
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     user_id: integer().references(() => usersTable.id),
     coffee_shop_id: integer().references(() => coffeeShopsTable.id),
-    created_at: timestamp().notNull().defaultNow(),
+    created_at: timestamp().defaultNow().notNull(),
+    updated_at: timestamp().defaultNow().notNull()
   },
   (table) => ({
     unique_entry: unique().on(table.user_id, table.coffee_shop_id),

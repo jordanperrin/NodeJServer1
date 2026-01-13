@@ -12,6 +12,6 @@ export const usersTable = pgTable("users", {
   password_hash: varchar({ length: 255 }).notNull(),
   username: varchar({ length: 255 }).notNull().unique(),
 
-  created_at: timestamp().notNull().defaultNow(),
-  updated_at: timestamp().notNull(),
+  created_at: timestamp().defaultNow().notNull(),
+  updated_at: timestamp().defaultNow().notNull()
 });

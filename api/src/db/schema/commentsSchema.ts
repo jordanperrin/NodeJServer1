@@ -21,5 +21,5 @@ export const coffeeShopComments = pgTable("coffee_shop_comments", {
   content: text("content").notNull(),
 
   created_at: timestamp().defaultNow().notNull(),
-  updated_at: timestamp().notNull(),
+  updated_at: timestamp().defaultNow().notNull()
 });

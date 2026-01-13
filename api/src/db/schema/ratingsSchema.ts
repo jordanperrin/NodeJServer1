@@ -20,8 +20,8 @@ export const ratingsTable = pgTable(
       .references(() => coffeeShopsTable.id),
     score: decimal({ precision: 3, scale: 1 }).notNull(),
 
-    created_at: timestamp().notNull().defaultNow(),
-    updated_at: timestamp().notNull(),
+    created_at: timestamp().defaultNow().notNull(),
+    updated_at: timestamp().defaultNow().notNull()
   },
   (table) => ({
     uniqueUserShop: unique().on(table.user_id, table.coffee_shop_id),
