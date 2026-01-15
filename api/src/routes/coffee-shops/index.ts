@@ -5,9 +5,6 @@ import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopS
 import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
 import {handleZipCode} from '../../middleware/zipCodeMiddleware'
 
-
-//coffee shop endpoints
-
 /*
 validateData method is just checking if the headers that are passed in 
 req.body are the same rows and types of my table, but then once it's validated 
@@ -23,7 +20,7 @@ router.get('/:id', getShopById);
 router.get('/', listShops);
 //need to create middleware for zipcode
 router.post('/', handleZipCode(createZipCodeSchema),validateData(createShopSchema), createShop);
-router.put('/:id',updatedAt, validateData(updateShopSchema), updateShop)
+router.put('/:id', updatedAt, validateData(updateShopSchema), updateShop);
 router.delete('/:id', deleteShop);
 
 export default router;

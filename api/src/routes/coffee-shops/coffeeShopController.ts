@@ -1,53 +1,52 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { db } from "../../db/index";
 import { coffeeShopsTable } from "../../db/schema/coffeeShopSchema";
 import { eq } from "drizzle-orm";
 import { type CoffeeShopInsert } from "../../types/zod/coffeeShopTableZod";
 import { createShopSchema } from "../../db/schema/coffeeShopSchema";
 
-export async function listShops(req: Request, res: Response) {
+export async function listShops(req: Request, res: Response, next: NextFunction) {
   try {
     const coffee_shops = await db.select().from(coffeeShopsTable);
     res.status(200).json(coffee_shops);
   } catch (e) {
-    res.status(500).send(e);
+    next(e);
   }
-  res.send("listShops");
 }
 
-export async function getShopById(req: Request, res: Response) {
+export async function getShopById(req: Request, res: Response, next: NextFunction) {
   try {
-    const { id } = req.params;
+    const id = Number(req.params.id);
     const [coffee_shop] = await db
       .select()
       .from(coffeeShopsTable)
-      .where(eq(coffeeShopsTable.id, Number(id)));
+      .where(eq(coffeeShopsTable.id, id));
 
     if (!coffee_shop) {
-      res.status(404).send({ message: "coffee shop not found" });
-    } else {
-      res.status(200).json(coffee_shop);
+      const error: any = new Error("coffee shop not found");
+      error.status = 404;
+      return next(error);
     }
+
+    res.status(200).json(coffee_shop);
   } catch (e) {
-    res.status(500).send(e);
+    next(e);
   }
-  res.send("getShopById");
 }
 
-export async function createShop(req: Request, res: Response) {
+export async function createShop(req: Request, res: Response, next: NextFunction) {
   try {
-    
     const [coffeeShop] = await db
       .insert(coffeeShopsTable)
       .values(req.cleanBody)
       .returning();
     res.status(201).json(coffeeShop);
   } catch (e) {
-    res.status(500).send(e);
+    next(e);
   }
 }
 
-export async function updateShop(req: Request, res: Response) {
+export async function updateShop(req: Request, res: Response, next: NextFunction) {
   try {
     const id = Number(req.params.id);
     const updatedFields = req.cleanBody;
@@ -58,18 +57,19 @@ export async function updateShop(req: Request, res: Response) {
       .where(eq(coffeeShopsTable.id, id))
       .returning();
 
-    if (updatedShop) {
-      res.status(200).json(updatedShop);
-    } else {
-      res.status(404).send({ message: "Shop not found" });
+    if (!updatedShop) {
+      const error: any = new Error("Shop not found");
+      error.status = 404;
+      return next(error);
     }
+
+    res.status(200).json(updatedShop);
   } catch (e) {
-    res.status(500).send(e);
+    next(e);
   }
-  res.send("updateShop");
 }
 
-export async function deleteShop(req: Request, res: Response) {
+export async function deleteShop(req: Request, res: Response, next: NextFunction) {
   try {
     const id = Number(req.params.id);
     const [deletedShop] = await db
@@ -77,12 +77,14 @@ export async function deleteShop(req: Request, res: Response) {
       .where(eq(coffeeShopsTable.id, id))
       .returning();
 
-    if (deletedShop) {
-      res.status(204).send();
-    } else {
-      res.status(404).send({ message: "Shop not found" });
+    if (!deletedShop) {
+      const error: any = new Error("Shop not found");
+      error.status = 404;
+      return next(error);
     }
+
+    res.status(204).send();
   } catch (e) {
-    res.status(500).send(e);
+    next(e);
   }
 }
