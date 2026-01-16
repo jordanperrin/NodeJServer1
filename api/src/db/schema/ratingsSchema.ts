@@ -5,8 +5,9 @@ import {
   unique,
   timestamp,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 import { coffeeShopsTable } from "./coffeeShopSchema";
-import { usersTable } from "./usersSchema";
+import { userTable } from "./usersSchema";
 
 export const ratingsTable = pgTable(
   "ratings",
@@ -14,10 +15,10 @@ export const ratingsTable = pgTable(
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     user_id: integer()
       .notNull()
-      .references(() => usersTable.id),
+      .references(() => userTable.id, { onDelete: "cascade" }),
     coffee_shop_id: integer()
       .notNull()
-      .references(() => coffeeShopsTable.id),
+      .references(() => coffeeShopsTable.id, { onDelete: "cascade" }),
     score: decimal({ precision: 3, scale: 1 }).notNull(),
 
     created_at: timestamp().defaultNow().notNull(),
@@ -27,3 +28,6 @@ export const ratingsTable = pgTable(
     uniqueUserShop: unique().on(table.user_id, table.coffee_shop_id),
   })
 );
+
+export const createRatingSchema = createInsertSchema(ratingsTable);
+export const updateRatingSchema = createInsertSchema(ratingsTable).partial();

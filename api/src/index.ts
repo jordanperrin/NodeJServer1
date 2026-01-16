@@ -6,7 +6,7 @@ import { errorHandler } from './middleware';
 const port = 3000;
 
 const app = express();
-//middleware -> allows us to add logic in between reqest and controllers
+
 app.use(urlencoded({extended: false}));
 app.use(json());
 
