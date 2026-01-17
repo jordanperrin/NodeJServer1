@@ -1,20 +1,27 @@
 import { Router } from 'express';
 import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
+import { getRatingsByShop, getRatingById, updateRating, deleteRating } from '../rating/ratingController';
 import { validateData , updatedAt } from '../../middleware';
 import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
 import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
+import { updateRatingSchema } from '../../db/schema/ratingsSchema';
 import {handleZipCode} from '../../middleware/zipCodeMiddleware'
 
 /*
-validateData method is just checking if the headers that are passed in 
-req.body are the same rows and types of my table, but then once it's validated 
-as the same and it gets passed to the controller, all the variables passed in 
-the req.body are interpreted at compile time as any even though at runtime our 
+validateData method is just checking if the headers that are passed in
+req.body are the same rows and types of my table, but then once it's validated
+as the same and it gets passed to the controller, all the variables passed in
+the req.body are interpreted at compile time as any even though at runtime our
 contorller might try to do specific logic like convert string to all uppercase,
 but that variable at runtime might be a number and then we have an issue and our app crashes
 */
 
 const router = Router();
+
+router.get('/:shopId/rating', getRatingsByShop);
+router.get('/:shopId/rating/:ratingId', getRatingById);
+router.put('/:shopId/rating/:ratingId', updatedAt, validateData(updateRatingSchema), updateRating);
+router.delete('/:shopId/rating/:ratingId', deleteRating);
 
 router.get('/:id', getShopById);
 router.get('/', listShops);
