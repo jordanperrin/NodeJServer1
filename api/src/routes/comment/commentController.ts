@@ -53,13 +53,14 @@ export async function getCommentById(req: Request, res: Response, next: NextFunc
   }
 }
 
-// POST /user/:userId/comment - Create a comment (user comments on a shop)
+// POST /coffee-shop/:shopId/comment - Create a comment on a shop
+// Note: user_id comes from req.body for now, will come from auth token later
 export async function createComment(req: Request, res: Response, next: NextFunction) {
   try {
-    const userId = Number(req.params.userId);
+    const shopId = Number(req.params.shopId);
     const [comment] = await db
       .insert(coffeeShopCommentsTable)
-      .values({ ...req.cleanBody, user_id: userId })
+      .values({ ...req.cleanBody, coffee_shop_id: shopId })
       .returning();
     res.status(201).json(comment);
   } catch (e) {
