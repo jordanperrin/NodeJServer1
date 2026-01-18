@@ -2,11 +2,13 @@ import { Router } from 'express';
 import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
 import { getRatingsByShop, getRatingById, updateRating, deleteRating } from '../rating/ratingController';
 import { getCommentsByShop, getCommentById, createComment, updateComment, deleteComment } from '../comment/commentController';
+import { getPhotosByShop, getPhotoById, createPhoto, deletePhoto } from '../photo/photoController';
 import { validateData , updatedAt } from '../../middleware';
 import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
 import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
 import { updateRatingSchema } from '../../db/schema/ratingsSchema';
 import { createCommentSchema, updateCommentSchema } from '../../db/schema/commentsSchema';
+import { createPhotoSchema } from '../../db/schema/coffeeShopPhotosSchema';
 import {handleZipCode} from '../../middleware/zipCodeMiddleware'
 
 /*
@@ -30,6 +32,11 @@ router.get('/:shopId/comment/:commentId', getCommentById);
 router.post('/:shopId/comment', validateData(createCommentSchema), createComment);
 router.put('/:shopId/comment/:commentId', updatedAt, validateData(updateCommentSchema), updateComment);
 router.delete('/:shopId/comment/:commentId', deleteComment);
+
+router.get('/:shopId/photo', getPhotosByShop);
+router.get('/:shopId/photo/:photoId', getPhotoById);
+router.post('/:shopId/photo', validateData(createPhotoSchema), createPhoto);
+router.delete('/:shopId/photo/:photoId', deletePhoto);
 
 router.get('/:id', getShopById);
 router.get('/', listShops);
