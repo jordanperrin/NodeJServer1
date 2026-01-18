@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { listShops, getShopById, createShop, updateShop, deleteShop} from './coffeeShopController';
 import { getRatingsByShop, getRatingById, updateRating, deleteRating } from '../rating/ratingController';
+import { getCommentsByShop, getCommentById, updateComment, deleteComment } from '../comment/commentController';
 import { validateData , updatedAt } from '../../middleware';
 import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
 import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
 import { updateRatingSchema } from '../../db/schema/ratingsSchema';
+import { updateCommentSchema } from '../../db/schema/commentsSchema';
 import {handleZipCode} from '../../middleware/zipCodeMiddleware'
 
 /*
@@ -22,6 +24,11 @@ router.get('/:shopId/rating', getRatingsByShop);
 router.get('/:shopId/rating/:ratingId', getRatingById);
 router.put('/:shopId/rating/:ratingId', updatedAt, validateData(updateRatingSchema), updateRating);
 router.delete('/:shopId/rating/:ratingId', deleteRating);
+
+router.get('/:shopId/comment', getCommentsByShop);
+router.get('/:shopId/comment/:commentId', getCommentById);
+router.put('/:shopId/comment/:commentId', updatedAt, validateData(updateCommentSchema), updateComment);
+router.delete('/:shopId/comment/:commentId', deleteComment);
 
 router.get('/:id', getShopById);
 router.get('/', listShops);
