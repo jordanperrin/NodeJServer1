@@ -3,6 +3,7 @@ import { listShops, getShopById, createShop, updateShop, deleteShop} from './cof
 import { getRatingsByShop, getRatingById, updateRating, deleteRating } from '../rating/ratingController';
 import { getCommentsByShop, getCommentById, createComment, updateComment, deleteComment } from '../comment/commentController';
 import { getPhotosByShop, getPhotoById, createPhoto, deletePhoto } from '../photo/photoController';
+import { getWantToTryByShop } from '../want-to-try/wantToTryController';
 import { validateData , updatedAt } from '../../middleware';
 import { createShopSchema, updateShopSchema } from  '../../db/schema/coffeeShopSchema';
 import { createZipCodeSchema } from '../../db/schema/zipCodeSchema';
@@ -37,6 +38,8 @@ router.get('/:shopId/photo', getPhotosByShop);
 router.get('/:shopId/photo/:photoId', getPhotoById);
 router.post('/:shopId/photo', validateData(createPhotoSchema), createPhoto);
 router.delete('/:shopId/photo/:photoId', deletePhoto);
+
+router.get('/:shopId/want-to-try', getWantToTryByShop);
 
 router.get('/:id', getShopById);
 router.get('/', listShops);
