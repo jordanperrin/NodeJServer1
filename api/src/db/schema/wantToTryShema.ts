@@ -25,4 +25,6 @@ export const wantToTryTable = pgTable(
   })
 );
 
-export const createWantToTrySchema = createInsertSchema(wantToTryTable);
+export const createWantToTrySchema = createInsertSchema(wantToTryTable).pick({
+  coffee_shop_id: true
+});

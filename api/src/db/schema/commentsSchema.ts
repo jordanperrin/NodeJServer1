@@ -24,5 +24,9 @@ export const coffeeShopCommentsTable = pgTable("coffee_shop_comments", {
   updated_at: timestamp().defaultNow().notNull()
 });
 
-export const createCommentSchema = createInsertSchema(coffeeShopCommentsTable);
+export const createCommentSchema = createInsertSchema(coffeeShopCommentsTable).pick({
+  user_id: true,
+  content: true,
+  url_photo: true
+});
 export const updateCommentSchema = createInsertSchema(coffeeShopCommentsTable).partial();

@@ -29,5 +29,8 @@ export const ratingsTable = pgTable(
   })
 );
 
-export const createRatingSchema = createInsertSchema(ratingsTable);
+export const createRatingSchema = createInsertSchema(ratingsTable).pick({
+  coffee_shop_id: true,
+  score: true
+});
 export const updateRatingSchema = createInsertSchema(ratingsTable).partial();

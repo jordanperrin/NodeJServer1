@@ -21,4 +21,7 @@ export const coffeeShopPhotosTable = pgTable("coffee_shop_photos", {
   created_at: timestamp().defaultNow().notNull(),
 });
 
-export const createPhotoSchema = createInsertSchema(coffeeShopPhotosTable);
+export const createPhotoSchema = createInsertSchema(coffeeShopPhotosTable).pick({
+  user_id: true,
+  url: true
+});
