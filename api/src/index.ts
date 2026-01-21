@@ -1,6 +1,7 @@
 import express, {json, urlencoded} from 'express';
 import coffeeShopRoutes from './routes/coffee-shops/index';
 import userRoutes from './routes/user/index';
+import twcEventRoutes from './routes/twc-event/index';
 import { errorHandler } from './middleware';
 
 const port = 3000;
@@ -17,6 +18,8 @@ app.get('/', (req,res)=>{
 app.use('/coffee-shop', coffeeShopRoutes);
 
 app.use('/user', userRoutes);
+
+app.use('/twc-event', twcEventRoutes);
 
 // Error handler must be last
 app.use(errorHandler);
